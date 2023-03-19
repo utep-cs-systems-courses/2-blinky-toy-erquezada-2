@@ -20,12 +20,15 @@ __interrupt_vec(WDT_VECTOR) WDT()	/* 250 interrupts/sec */
 
   counter++;  
   
-  if (counter == 250){
+  if (counter == 250){  // can modify to get fast or slow blinking lights
     counter = 0;
     led = !led;              //  either a 1  or a 0
-    if (led)
-      P1OUT |= LED_GREEN;   //  turn on green led
-    else
-      P1OUT &= ~LED_GREEN;  // turn off green led
+    if (led){
+      P1OUT |= LED_RED;      //  turn on leds
+      P1OUT |= LED_GREEN;    
+    }else{
+      P1OUT &= ~LED_RED;  // turn off leds
+      P1OUT &= ~LED_GREEN; 
+    }
   }
 } 
